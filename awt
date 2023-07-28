@@ -1,0 +1,444 @@
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.io.*;
+import javax.swing.JOptionPane;
+import java.util.*;
+
+
+class project112 extends Frame implements ActionListener
+{
+    TextField f1;
+    TextField f2;
+    TextField f3; 
+    TextField f4;
+    Button b1;
+    Button b2;
+    Button b3;
+    Button b4;
+    Button b5;
+    Button b6;
+    Button b7;
+    Button b8;
+    Button b9;
+    Button b10;
+    Button b11;
+    String CurrentLine;
+    BufferedReader br;
+    String line;
+    ArrayList<String> al;
+    String newLine;
+    int index=0;
+
+    
+
+
+
+ 	
+
+    
+
+ public project112()
+ {
+        setTitle("EMPLOYEE DATA");
+        setSize(800, 800);
+        setLayout(null);
+        setVisible(true);
+
+        // label
+        Label l0 = new Label("Employee Data");
+        Label l1 = new Label("Emp id");
+        Label l2 = new Label("Name");
+        Label l3 = new Label("Job");
+        Label l4 = new Label("Salary");
+        Label l5 = new Label("Dept");
+
+        l0.setBounds(300, 50, 100, 50);
+        l1.setBounds(100, 130, 80, 30);
+        l2.setBounds(100, 230, 80, 30);
+        l3.setBounds(100, 330, 80, 30);
+        l4.setBounds(100, 430, 80, 30);
+        l5.setBounds(450, 430, 80, 30);
+
+        add(l0);
+        add(l1);
+        add(l2);
+        add(l3);
+        add(l4);
+        add(l5);
+
+        // text field
+        f1 = new TextField();
+        f2 = new TextField();
+        f3 = new TextField();
+        f4 = new TextField();
+
+        f1.setBounds(200, 130, 150, 35);
+        f2.setBounds(200, 230, 150, 35);
+        f3.setBounds(200, 330, 150, 35);
+        f4.setBounds(200, 430, 150, 35);
+
+        add(f1);
+        add(f2);
+        add(f3);
+        add(f4);
+
+        // choice
+        Choice c1 = new Choice();
+
+        c1.setBounds(530, 430, 150, 50);
+
+        add(c1);
+
+        c1.add("developer");
+        c1.add("testing");
+
+        // button
+         b1 = new Button("first");
+         b2 = new Button("next");
+         b3 = new Button("prev");
+         b4 = new Button("last");
+         b5 = new Button("add");
+         b6 = new Button("edit");
+         b7 = new Button("del");
+         b8 = new Button("save");
+         b9 = new Button("search");
+         b10 = new Button("clear");
+         b11 = new Button("exit");
+
+        b1.setBounds(200, 550, 80, 30);
+        b2.setBounds(300, 550, 80, 30);
+        b3.setBounds(400, 550, 80, 30);
+        b4.setBounds(500, 550, 80, 30);
+        b5.setBounds(200, 600, 80, 30);
+        b6.setBounds(300, 600, 80, 30);
+        b7.setBounds(400, 600, 80, 30);
+        b8.setBounds(500, 600, 80, 30);
+        b9.setBounds(200, 650, 80, 30);
+        b10.setBounds(300, 650, 80, 30);
+        b11.setBounds(400, 650, 80, 30);
+
+        add(b1);
+        add(b2);
+        add(b3);
+        add(b4);
+        add(b5);
+        add(b6);
+        add(b7);
+        add(b8);
+        add(b9);
+        add(b10);
+        add(b11);
+b11.addActionListener(this);
+b10.addActionListener(this);
+b5.addActionListener(this);
+b1.addActionListener(this);
+b4.addActionListener(this);
+b9.addActionListener(this);
+b2.addActionListener(this);
+b3.addActionListener(this);
+b6.addActionListener(this);
+b7.addActionListener(this);
+b8.addActionListener(this);
+
+
+	     readata();
+}
+public void readata() {
+        try {
+            al = new ArrayList<>();
+            File f = new File("Emp.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                al.add(line);
+            }
+            br.close();
+        } catch (Exception ex) {
+           
+        }
+    }
+
+
+ public void actionPerformed(ActionEvent ae)
+{
+	if(ae.getSource()==b11)
+	{
+
+	System.exit(0);
+	}
+
+	if(ae.getSource()==b10)
+	{
+	f1.setText("");
+	f2.setText("");
+	f3.setText("");
+	f4.setText("");
+	}
+
+	if(ae.getSource()==b5)
+	{
+	try
+        {
+
+	File f=new File("emp.txt");
+	FileWriter fw=new FileWriter(f,true);
+	
+	String id=f1.getText();
+	String name=f2.getText();
+	String job=f3.getText();
+	String sal=f4.getText();
+	double sala=Double.parseDouble(sal);
+	fw.write(id);
+	fw.write(",");
+	fw.write(name);
+        fw.write(",");
+	fw.write(job);
+	fw.write(",");
+	fw.write(String.valueOf(sal));
+ 	
+	fw.write("\n");
+	fw.close();
+	}
+	catch(IOException io)
+	{}
+	catch(NumberFormatException io)
+	{
+	JOptionPane.showMessageDialog(this, "plz enter the number","input error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	}
+
+	if(ae.getSource()==b1)
+	{
+	try
+	{
+	File f=new File("emp.txt");
+	FileReader fr=new FileReader(f);
+	BufferedReader br=new BufferedReader(fr);
+	String line= br.readLine();
+		
+		StringTokenizer st = new StringTokenizer(line, ",");
+		f1.setText(st.nextToken());
+		f2.setText(st.nextToken());
+		f3.setText(st.nextToken());
+		f4.setText(st.nextToken());
+
+		br.close();
+	}
+	catch(IOException er)
+	{}
+
+	}
+	
+	
+	if (ae.getSource() == b4) 
+	{
+        try
+	 {
+            File f = new File("emp.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String first;
+            String last = "";
+            while ((first=br.readLine()) != null) {
+                last = first;
+		     
+            }
+            if (last != null) {
+                StringTokenizer st = new StringTokenizer(last, ",");
+                f1.setText(st.nextToken());
+                f2.setText(st.nextToken());
+                f3.setText(st.nextToken());
+                f4.setText(st.nextToken());
+            }
+
+            br.close();
+        } 
+	catch (Exception ex) 
+	{
+            ex.printStackTrace();
+        }
+
+	}
+
+	if (ae.getSource() == b2)
+	 {
+	 if (al != null && index>=0 && index<al.size()) 
+	{
+		int index = al.indexOf(CurrentLine);
+		newLine = al.get(index+1);
+		StringTokenizer st = new StringTokenizer(newLine, ",");
+                f1.setText(st.nextToken());
+                f2.setText(st.nextToken());
+                f3.setText(st.nextToken());
+                f4.setText(st.nextToken());
+
+			CurrentLine = newLine;
+		
+		}
+		else{
+		f1.setText("");
+                f2.setText("");
+                f3.setText("");
+                f4.setText("");
+			CurrentLine = al.get(0);
+		}
+	}
+
+
+	if (ae.getSource() == b3)
+	 {
+	if ( al!= null && !al.isEmpty() && index>=0 && index<al.size()) {
+		
+		index = al.indexOf(CurrentLine);
+		newLine = al.get(index-1);
+		StringTokenizer st = new StringTokenizer(newLine, ",");
+                f1.setText(st.nextToken());
+                f2.setText(st.nextToken());
+                f3.setText(st.nextToken());
+                f4.setText(st.nextToken());
+		CurrentLine = newLine;
+		index--;
+		}
+	  else{
+		f1.setText("");
+                f2.setText("");
+                f3.setText("");
+                f4.setText("");
+			CurrentLine = al.get(al.size()-1);
+			index = al.size()-1;
+		}	
+
+	}
+
+	
+	if(ae.getSource()== b9)
+	{
+	String t1 = f1.getText();
+	for (String line : al)
+	 {
+        StringTokenizer st = new StringTokenizer(line, ",");
+        String empid = st.nextToken();
+        if (empid.equals(t1))
+	 {
+            f1.setText(empid);
+            f2.setText(st.nextToken());
+            f3.setText(st.nextToken());
+            f4.setText(st.nextToken());
+            break; 
+        }
+	
+    	}
+	}
+
+
+	if(ae.getSource()==b6)
+	{
+	try {
+        String empid = f1.getText();
+        String name = f2.getText();
+        String job = f3.getText();
+        String salary = f4.getText();
+
+        String editedLine = empid + "," + name + "," + job + "," + salary;
+
+        for (int i = 0; i < al.size(); i++) {
+            String line = al.get(i);
+            StringTokenizer st = new StringTokenizer(line, ",");
+            String currentEmpid = st.nextToken();
+
+            if (currentEmpid.equals(empid)) {
+                al.set(i, editedLine);
+                break;
+            }
+        }
+
+        FileWriter fw = new FileWriter("Emp.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+
+        for (String line : al) {
+            pw.println(line);
+        }
+
+        pw.close();
+        bw.close();
+        fw.close();
+
+        readata();
+    } catch (Exception ex) 
+	{}
+	}
+
+if (ae.getSource() == b8) 
+{
+            try {
+            String empid = f1.getText();
+            String name = f2.getText();
+            String job = f3.getText();
+            String salary = f4.getText();
+
+            FileWriter fw = new FileWriter("Emp.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            pw.println(empid + "," + name + "," + job + "," + salary);
+
+            pw.close();
+            bw.close();
+            fw.close();
+
+            readata();
+        } catch (Exception ex) {
+         
+        }
+            }
+
+
+	if (ae.getSource() == b7) 
+	{
+	String t1 = f1.getText();
+	for (String line : al)
+	 {
+        StringTokenizer st = new StringTokenizer(line, ",");
+        String empid = st.nextToken();
+        if (empid.equals(t1))
+	 {
+	    al.remove(line);
+	break;
+	}
+	}
+	try {
+        FileWriter fw = new FileWriter("Emp.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        for (String line : al)
+	 {
+            bw.write(line);
+            bw.newLine();
+        }
+        
+        bw.close();
+	}
+	catch(IOException epp)
+	{}
+
+
+	}
+}
+ 	
+	
+
+    public static void main(String[] args) 
+    {
+        project112 p = new project112();
+ 
+   
+    }
+}
+
+
+
